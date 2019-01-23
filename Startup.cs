@@ -45,6 +45,8 @@ namespace ConduitApi
                 options.DefaultAuthenticateScheme = AuthenticationOptions.DefaultScheme;
                 options.DefaultChallengeScheme = AuthenticationOptions.DefaultScheme;
             }).AddBasicTokenAuthentication();
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,8 +60,15 @@ namespace ConduitApi
             {
                 app.UseHsts();
             }
+            
 
             app.UseHttpsRedirection();
+            if (Configuration["EnableCORS"] == "True")
+            {
+                app.UseCors(o => o.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            }
             app.UseErrorHandling();
             app.UseAuthentication();
             app.UseMvc();
