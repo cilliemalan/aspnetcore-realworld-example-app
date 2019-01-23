@@ -109,7 +109,7 @@ namespace ConduitApi.Controllers
                     Slug = dbArticle.Slug,
                     TagList = dbArticle.Tags.Select(z => z.TagName).ToArray(),
                     Title = dbArticle.Title,
-                    UpdatedAt = dbArticle.UpdatedAt == dbArticle.CreatedAt ? null : (DateTime?)dbArticle.UpdatedAt
+                    UpdatedAt = dbArticle.UpdatedAt
                 }
             };
         }
@@ -193,7 +193,7 @@ namespace ConduitApi.Controllers
                     Slug = dbArticle.Slug,
                     TagList = dbArticle.Tags.Select(t => t.TagName).ToArray(),
                     Title = dbArticle.Title,
-                    UpdatedAt = dbArticle.UpdatedAt == dbArticle.CreatedAt ? null : (DateTime?)dbArticle.UpdatedAt
+                    UpdatedAt = dbArticle.UpdatedAt
                 }
             };
         }
@@ -310,7 +310,7 @@ namespace ConduitApi.Controllers
                     Slug = x.Slug,
                     TagList = x.Tags.Select(t => t.TagName).ToArray(),
                     Title = x.Title,
-                    UpdatedAt = x.UpdatedAt == x.CreatedAt ? null : (DateTime?)x.UpdatedAt
+                    UpdatedAt = x.UpdatedAt
                 }).ToArray()
             };
         }

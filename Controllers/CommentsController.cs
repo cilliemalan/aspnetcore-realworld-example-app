@@ -65,7 +65,7 @@ namespace ConduitApi.Controllers
                     Body = dbComment.Body,
                     CreatedAt = dbComment.CreatedAt,
                     Id = dbComment.CommentId,
-                    UpdatedAt = dbComment.CreatedAt == dbComment.UpdatedAt ? (DateTime?)null : dbComment.UpdatedAt
+                    UpdatedAt = dbComment.UpdatedAt
                 }
             };
         }
@@ -95,7 +95,7 @@ namespace ConduitApi.Controllers
                         },
                         Body = x.Body,
                         CreatedAt = x.CreatedAt,
-                        UpdatedAt = x.UpdatedAt == x.CreatedAt ? (DateTime?)null : x.UpdatedAt,
+                        UpdatedAt = x.UpdatedAt,
                         Id = x.CommentId
                     }).ToArray()
                 };
