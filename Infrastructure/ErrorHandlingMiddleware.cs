@@ -56,14 +56,23 @@ namespace ConduitApi.Infrastructure
                 if (exception is StatusCodeException see)
                 {
                     code = see.Code;
-                }
 
-                if (exception is BadRequestException bre)
+                    if (exception is BadRequestException bre)
+                    {
+                        errors.AddRange(bre.ModelState
+                            .Where(m => m.Value.ValidationState == ModelValidationState.Invalid && m.Value.Errors.Count > 0)
+                                .SelectMany(m => m.Value.Errors
+                                    .Select(e => string.IsNullOrEmpty(m.Key) ? e.ErrorMessage : $"{m.Key}: {e.ErrorMessage}")));
+                    }
+                }
+                else
                 {
-                    errors.AddRange(bre.ModelState
-                        .Where(m => m.Value.ValidationState == ModelValidationState.Invalid && m.Value.Errors.Count > 0)
-                            .SelectMany(m => m.Value.Errors
-                                .Select(e => string.IsNullOrEmpty(m.Key) ? e.ErrorMessage : $"{m.Key}: {e.ErrorMessage}")));
+                    var e = exception;
+                    while (e != null)
+                    {
+                        errors.Add(e.Message);
+                        e = e.InnerException;
+                    }
                 }
             }
 
